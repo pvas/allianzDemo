@@ -23,14 +23,9 @@ public class COReading {
 	@Column(name = "read_value")
 	private double coTwoMeasure;
 	
-	@Column(name = "read_value")
+	@Column(name = "id_district")
+	private String districtId;
+		
+	@Column(name = "read_time")
 	private Time timeStamp;
-	
-	
-	 /* id INT AUTO_INCREMENT PRIMARY KEY,
-	  read_value REAL NOT NULL,
-	  id_district INT NOT NULL,
-	  read_time TIMESTAMP AS CURRENT_TIMESTAMP,
-	  FOREIGN KEY (id_district) REFERENCES public.district(id)*/
-
 }
