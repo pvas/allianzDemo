@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS city;
+DROP TABLE IF EXISTS sensor;
+DROP TABLE IF EXISTS district;
+DROP TABLE IF EXISTS coreading;
+
+CREATE TABLE IF NOT EXISTS city (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sensor (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  description VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS district (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(250) NOT NULL,
+  id_city INT NOT NULL,
+  id_sensor INT NOT NULL,
+  FOREIGN KEY (id_city) REFERENCES public.city(id),
+  FOREIGN KEY (id_sensor) REFERENCES public.sensor(id)
+);
+
+CREATE TABLE IF NOT EXISTS coreading (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  read_value REAL NOT NULL,
+  id_district INT NOT NULL,
+  read_time TIMESTAMP AS CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_district) REFERENCES public.district(id)
+);
