@@ -27,11 +27,11 @@ public class COTwoMeasureDTO {
 		this.districtId = districtId;
 	}
 
-	public Date getTimeStamp() {
+	public LocalDateTime getTimeStamp() {
 		return timeStamp;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
+	public void setTimeStamp(LocalDateTime timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 	
