@@ -11,7 +11,7 @@
         </layout>
     </appender>
 
-    <logger name="com.marfeel.web.controller">
+    <logger name="com.allianz.coreader.controllers">
         <level value="INFO"/>
         <appender-ref ref="CONSOLE"/>
     </logger>

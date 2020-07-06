@@ -1,6 +1,6 @@
-package com.allianz.coreader.model;
+package com.allianz.coreader.models;
 
-import java.sql.Time;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@RequiredArgsConstructor
 public class COReading {
 	
 	@Id
@@ -27,5 +29,5 @@ public class COReading {
 	private String districtId;
 		
 	@Column(name = "read_time")
-	private Time timeStamp;
+	private LocalDateTime timeStamp;
 }

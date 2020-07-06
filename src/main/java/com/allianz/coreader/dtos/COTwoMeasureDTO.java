@@ -1,6 +1,6 @@
-package com.allianz.coreader.dto;
+package com.allianz.coreader.dtos;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,6 @@ public class COTwoMeasureDTO {
 	
 	private double coTwoMeasure;
 	private String districtId;
-	private Date timeStamp;
+	private LocalDateTime timeStamp;
 
 }
