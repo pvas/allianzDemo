@@ -43,17 +43,28 @@ public class COReaderController {
 			final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) {
 
 		ResponseEntity<String> response = null;
-
+		
+		
+		if(!coReaderService.doesDistrictExist(coTwoMeasureDTO.getDistrictId())) {
+			StringBuilder errormessages = new StringBuilder("The district ")
+					.append(coTwoMeasureDTO.getDistrictId()).append(" is not stored in the database");
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
+		}
+		
 		Set<ConstraintViolation<COTwoMeasureDTO>> errors = coTwoValidator.validate(coTwoMeasureDTO);
-		if (errors.isEmpty()) {
+		
+		if (response == null && errors.isEmpty()) {
 			coReaderService.processCOValue(coTwoMeasureDTO);
 			response = new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			StringBuilder errorMessages = new StringBuilder();
-			errors.forEach((error) -> errorMessages.append(" ").append(error.getMessage()));
-			LOG.debug("there was error trying to save C02 Reading {}",errorMessages);
-			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessages.toString());
+		} 
+		
+		if (response == null && !errors.isEmpty()) {
+			StringBuilder errormessages = new StringBuilder();
+			errors.forEach((error) -> errormessages.append(" ").append(error.getMessage()));
+			LOG.debug("there was error trying to save C02 Reading {}",errormessages);
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
 		}
+		
 		return response;
 	}
 }

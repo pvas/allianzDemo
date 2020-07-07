@@ -15,7 +15,6 @@ public class COTwoMeasureDTO {
 	
 	@NotNull(message = "districtId must be included")
 	@NotEmpty(message = "districtId must be a valid id and registrated in database")
-	@Positive(message = "districtId must be a valid id and registrated in database")
 	@NotBlank(message = "districtId must be a valid id and registrated in database") 
 	private String districtId;
 
