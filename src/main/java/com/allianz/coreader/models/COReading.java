@@ -25,8 +25,8 @@ public class COReading {
 	@Column(name = "read_value")
 	private double coTwoMeasure;
 	
-	@Column(name = "id_district")
-	private String districtId;
+	@Column(name = "id_sensor")
+	private String sensorId;
 		
 	@Column(name = "read_time")
 	private LocalDateTime timeStamp;

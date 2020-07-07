@@ -17,6 +17,10 @@ public class Sensor {
     @Column(name = "id")
     private String id;
 
+    @Column(name = "id_district")
+    private String districtId;
+    
     @Column(name = "description")
     private String description;
+    
 }

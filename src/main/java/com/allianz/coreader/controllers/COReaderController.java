@@ -45,12 +45,12 @@ public class COReaderController {
 		ResponseEntity<String> response = null;
 		
 		
-		if(!coReaderService.doesDistrictExist(coTwoMeasureDTO.getDistrictId())) {
+		/*if(!coReaderService.doesSensorExist(coTwoMeasureDTO.getSensorId())) {
 			StringBuilder errormessages = new StringBuilder("The district ")
-					.append(coTwoMeasureDTO.getDistrictId()).append(" is not stored in the database");
+					.append(coTwoMeasureDTO.getSensorId()).append(" is not stored in the database");
 			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
-		}
-		
+		}*/
+	
 		Set<ConstraintViolation<COTwoMeasureDTO>> errors = coTwoValidator.validate(coTwoMeasureDTO);
 		
 		if (response == null && errors.isEmpty()) {

@@ -20,9 +20,6 @@ public class District {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "id_sensor")
-    private String sensorId;
-
     @Column(name = "id_city")
     private String cityId;
 

@@ -32,7 +32,7 @@ public class COReaderControllerTest extends AbstractTest {
 		final HttpServletRequest httpRequest = null;
 		final HttpServletResponse httpResponse = null;
 		coTwoMeasureDTO.setCoTwoMeasure(457899);
-		coTwoMeasureDTO.setDistrictId("1");
+		coTwoMeasureDTO.setSensorId("1");
 		Assert.assertEquals(controller.coTwoReader(coTwoMeasureDTO, httpRequest, httpResponse), new ResponseEntity<>(HttpStatus.OK));
 	}
 }

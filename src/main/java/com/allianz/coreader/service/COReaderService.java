@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.allianz.coreader.dtos.COTwoMeasureDTO;
 import com.allianz.coreader.models.COReading;
-import com.allianz.coreader.models.District;
+import com.allianz.coreader.models.Sensor;
 import com.allianz.coreader.repositories.COReadingRepository;
-import com.allianz.coreader.repositories.DistrictRepository;
+import com.allianz.coreader.repositories.SensorRepository;
 
 @Service
 public class COReaderService {
@@ -24,29 +24,29 @@ public class COReaderService {
 	COReadingRepository coReadingRepository;
 
 	@Autowired
-	DistrictRepository districtRepository;
+	SensorRepository districtRepository;
 
 	public void processCOValue(COTwoMeasureDTO coTwoMeasureDTO) {
 		LOG.info("DTO Content: {}", coTwoMeasureDTO);
 
 		COReading coReading = new COReading();
-		coReading.setDistrictId(coTwoMeasureDTO.getDistrictId());
+		coReading.setSensorId(coTwoMeasureDTO.getSensorId());
 		coReading.setCoTwoMeasure(coTwoMeasureDTO.getCoTwoMeasure());
 		coReading.setTimeStamp(LocalDateTime.now());
 
 		coReadingRepository.save(coReading);
 	}
 
-	public boolean doesDistrictExist(String districtId) {
+	public boolean doesSensorExist(String sensorId) {
 
-		Optional<District> districtOptional = districtRepository.findById(districtId);
-		District district = null;
+		Optional<Sensor> sensorOptional = districtRepository.findById(sensorId);
+		Sensor sensor = null;
 		try {
-			district = districtOptional.get();
+			sensor = sensorOptional.get();
 		} catch (NoSuchElementException nsee) {
-			LOG.error("The district {} is not stored in the database", districtId);
+			LOG.error("The district {} is not stored in the database", sensorId);
 			return false;
 		}
-		return district != null;
+		return sensor != null;
 	}
 }

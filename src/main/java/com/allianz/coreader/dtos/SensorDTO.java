@@ -9,4 +9,5 @@ public class SensorDTO {
 
 	private String description;
 
+	private String districtId;
 }
