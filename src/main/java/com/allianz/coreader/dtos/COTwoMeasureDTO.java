@@ -1,14 +1,23 @@
 package com.allianz.coreader.dtos;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import lombok.Getter;
 
 @Getter
 public class COTwoMeasureDTO {
+	
+	@Positive(message = "CO2 Reading must be included and bo a positive float number") 
 	private double coTwoMeasure;
+	
+	@NotNull(message = "districtId must be included")
+	@NotEmpty(message = "districtId must be a valid id and registrated in database")
+	@Positive(message = "districtId must be a valid id and registrated in database")
+	@NotBlank(message = "districtId must be a valid id and registrated in database") 
 	private String districtId;
-	private LocalDateTime timeStamp;
 
 
 	public double getCoTwoMeasure() {
@@ -27,18 +36,9 @@ public class COTwoMeasureDTO {
 		this.districtId = districtId;
 	}
 
-	public LocalDateTime getTimeStamp() {
-		return timeStamp;
-	}
-
-	public void setTimeStamp(LocalDateTime timeStamp) {
-		this.timeStamp = timeStamp;
-	}
-	
-
 	@Override
 	public String toString() {
 		return new StringBuilder().append("COTwoMeasureDTO [coTwoMeasure=").append(coTwoMeasure).append(", districtId=")
-				.append(districtId).append(", timeStamp=").append(timeStamp).append("]").toString();
+				.append(districtId).append("]").toString();
 	}
 }

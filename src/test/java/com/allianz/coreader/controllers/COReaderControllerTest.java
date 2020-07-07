@@ -33,7 +33,6 @@ public class COReaderControllerTest extends AbstractTest {
 		final HttpServletResponse httpResponse = null;
 		coTwoMeasureDTO.setCoTwoMeasure(457899);
 		coTwoMeasureDTO.setDistrictId("1");
-		coTwoMeasureDTO.setTimeStamp(LocalDateTime.now());
 		Assert.assertEquals(controller.coTwoReader(coTwoMeasureDTO, httpRequest, httpResponse), new ResponseEntity<>(HttpStatus.OK));
 	}
 }
