@@ -2,7 +2,6 @@ package com.allianz.coreader.controllers;
 
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
@@ -59,8 +58,6 @@ public class COReaderController {
 			coReaderService.processCOValue(coTwoMeasureDTO);
 			response = new ResponseEntity<>(HttpStatus.CREATED);
 		} 
-		
-		
 		
 		return response;
 	}
