@@ -42,7 +42,8 @@ public class COReaderService {
 		Optional<Sensor> sensorOptional = districtRepository.findById(sensorId);
 		Sensor sensor = null;
 		try {
-			sensor = sensorOptional.get();
+			if(sensorOptional.isPresent())
+				sensor = sensorOptional.get();
 		} catch (NoSuchElementException nsee) {
 			LOG.error("The district {} is not stored in the database", sensorId);
 			return false;

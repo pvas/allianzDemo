@@ -27,7 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.allianz.coreader.dtos.SensorDTO;
-import com.allianz.coreader.managers.SensorManager;
+import com.allianz.coreader.service.SensorService;
 
 @SpringBootTest
 public class SensorControllerTest {
@@ -36,7 +36,7 @@ public class SensorControllerTest {
 	@InjectMocks private SensorController sensorController;
 	
 	@Mock
-	private SensorManager manager;
+	private SensorService manager;
 
 	@Mock
 	private Validator beanValidator;

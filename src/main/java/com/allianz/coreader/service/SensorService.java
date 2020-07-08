@@ -1,4 +1,4 @@
-package com.allianz.coreader.managers;
+package com.allianz.coreader.service;
 
 import com.allianz.coreader.models.Sensor;
 import com.allianz.coreader.repositories.SensorRepository;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SensorManager {
+public class SensorService {
 
     @Autowired
     private SensorRepository repository;

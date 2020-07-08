@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allianz.coreader.dtos.SensorDTO;
-import com.allianz.coreader.managers.SensorManager;
+import com.allianz.coreader.service.SensorService;
 import com.allianz.coreader.models.Sensor;
 
 @RestController
@@ -26,7 +26,7 @@ import com.allianz.coreader.models.Sensor;
 public class SensorController {
 
 	@Autowired
-	private SensorManager manager;
+	private SensorService manager;
 	
 
 	@Autowired
