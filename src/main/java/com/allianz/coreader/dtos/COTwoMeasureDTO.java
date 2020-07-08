@@ -15,8 +15,8 @@ public class COTwoMeasureDTO {
 	private double coTwoMeasure;
 	
 	@NotNull(message =  "sensorId must be included")
-	@NotEmpty(message = "sensorId must be a valid id and registrated in database")
-	@NotBlank(message = "sensorId must be a valid id and registrated in database") 
+	@NotEmpty(message = "sensorId cannot be empty")
+	@NotBlank(message = "sensorId cannot be blank") 
 	private String sensorId;
 
 	@Override

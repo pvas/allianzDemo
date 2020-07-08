@@ -19,7 +19,7 @@ public class CoreaderApplication {
 	}
 	
 	@Bean
-	public Validator coTwoValidator() {
+	public Validator beanValidator() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		return factory.getValidator();
 	}

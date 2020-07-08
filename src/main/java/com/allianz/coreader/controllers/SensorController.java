@@ -1,8 +1,14 @@
 package com.allianz.coreader.controllers;
 
-import com.allianz.coreader.dtos.SensorDTO;
-import com.allianz.coreader.managers.SensorManager;
-import com.allianz.coreader.models.Sensor;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.allianz.coreader.dtos.SensorDTO;
+import com.allianz.coreader.managers.SensorManager;
+import com.allianz.coreader.models.Sensor;
 
 @RestController
 @RequestMapping(value = "/sensor")
@@ -20,26 +27,40 @@ public class SensorController {
 
 	@Autowired
 	private SensorManager manager;
+	
+
+	@Autowired
+	private Validator beanValidator;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(SensorController.class);
 
 	@PostMapping
-	public ResponseEntity<Void> addSensor(@RequestBody final SensorDTO sensorDTO,
+	public ResponseEntity<String> addSensor(@RequestBody final SensorDTO sensorDTO,
 			final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) {
 
-		ResponseEntity<Void> responseEntity;
-
-		if(sensorDTO == null || sensorDTO.getDescription().isEmpty()) {
-			responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} else if(manager.exists(sensorDTO.getDescription())) {
+		ResponseEntity<String> responseEntity = null;
+		Set<ConstraintViolation<SensorDTO>> errors = beanValidator.validate(sensorDTO);
+		
+		
+		if(!errors.isEmpty()) {
+			StringBuilder errormessages = new StringBuilder();
+			errors.forEach((error) -> errormessages.append(" | ").append(error.getMessage()));
+			LOG.debug("there were errors trying to save C02 Sensor {}",errormessages);
+			responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
+		}
+		
+		if(errors.isEmpty() && manager.exists(sensorDTO.getDescription())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.FOUND);
-		} else {
+		}
+		
+		
+		if(errors.isEmpty() && responseEntity == null) {
 			Sensor newSensor = new Sensor();
 			newSensor.setDescription(sensorDTO.getDescription());
-			if(manager.addSensor(newSensor)) {
-				responseEntity = new ResponseEntity<>(HttpStatus.OK);
-			} else {
-				responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
+			newSensor.setDistrictId(sensorDTO.getDistrictId());
+			
+			responseEntity = (manager.addSensor(newSensor)) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} 
 		return responseEntity;
 	}
 

@@ -28,12 +28,8 @@ public class COReaderController {
 	private static final Logger LOG = LoggerFactory.getLogger(COReaderController.class);
 
 	@Autowired
-	private Validator coTwoValidator;
+	private Validator beanValidator;
 
-	@PostConstruct
-	public void setValidator() {
-
-	}
 
 	@Autowired
 	COReaderService coReaderService;
@@ -43,27 +39,28 @@ public class COReaderController {
 			final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) {
 
 		ResponseEntity<String> response = null;
-		
-		
-		/*if(!coReaderService.doesSensorExist(coTwoMeasureDTO.getSensorId())) {
+		Set<ConstraintViolation<COTwoMeasureDTO>> errors = beanValidator.validate(coTwoMeasureDTO);
+			
+		if (errors.isEmpty() && !coReaderService.doesSensorExist(coTwoMeasureDTO.getSensorId())) { 
 			StringBuilder errormessages = new StringBuilder("The district ")
 					.append(coTwoMeasureDTO.getSensorId()).append(" is not stored in the database");
 			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
-		}*/
-	
-		Set<ConstraintViolation<COTwoMeasureDTO>> errors = coTwoValidator.validate(coTwoMeasureDTO);
-		
-		if (response == null && errors.isEmpty()) {
-			coReaderService.processCOValue(coTwoMeasureDTO);
-			response = new ResponseEntity<>(HttpStatus.OK);
-		} 
+		}
 		
 		if (response == null && !errors.isEmpty()) {
 			StringBuilder errormessages = new StringBuilder();
-			errors.forEach((error) -> errormessages.append(" ").append(error.getMessage()));
-			LOG.debug("there was error trying to save C02 Reading {}",errormessages);
+			errors.forEach((error) -> errormessages.append(" | ").append(error.getMessage()));
+			LOG.debug("there were errors trying to save C02 Reading {}",errormessages);
 			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
 		}
+		
+		
+		if (response == null && errors.isEmpty()) {
+			coReaderService.processCOValue(coTwoMeasureDTO);
+			response = new ResponseEntity<>(HttpStatus.CREATED);
+		} 
+		
+		
 		
 		return response;
 	}
