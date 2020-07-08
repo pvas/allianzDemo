@@ -24,7 +24,7 @@ public class COReaderService {
 	COReadingRepository coReadingRepository;
 
 	@Autowired
-	SensorRepository districtRepository;
+	SensorRepository sensorRepository;
 
 	public void processCOValue(COTwoMeasureDTO coTwoMeasureDTO) {
 		LOG.info("DTO Content: {}", coTwoMeasureDTO);
@@ -39,7 +39,7 @@ public class COReaderService {
 
 	public boolean doesSensorExist(String sensorId) {
 
-		Optional<Sensor> sensorOptional = districtRepository.findById(sensorId);
+		Optional<Sensor> sensorOptional = sensorRepository.findById(sensorId);
 		Sensor sensor = null;
 		try {
 			if(sensorOptional.isPresent())

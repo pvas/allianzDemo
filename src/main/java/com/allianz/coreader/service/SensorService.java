@@ -13,11 +13,11 @@ public class SensorService {
 
     public Boolean exists(String description) {
         Sensor sensor = repository.findByDescription(description);
-        return sensor != null ? Boolean.TRUE : Boolean.FALSE;
+        return sensor != null ;
     }
 
     public Boolean addSensor(Sensor sensor) {
         Sensor newSensor = repository.save(sensor);
-        return newSensor.getId() != null ? Boolean.TRUE : Boolean.FALSE;
+        return newSensor.getId() != null;
     }
 }
