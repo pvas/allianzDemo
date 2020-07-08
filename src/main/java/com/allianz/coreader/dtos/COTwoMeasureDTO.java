@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter @Setter
 public class COTwoMeasureDTO {
 	
-	@Positive(message = "CO2 Reading must be included and bo a positive float number") 
+	@Positive(message = "CO2 Reading (coTwoMeasure) must be included and must be a positive float number") 
 	private double coTwoMeasure;
 	
 	@NotNull(message =  "sensorId must be included")

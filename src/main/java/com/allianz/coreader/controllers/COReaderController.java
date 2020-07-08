@@ -21,7 +21,7 @@ import com.allianz.coreader.dtos.COTwoMeasureDTO;
 import com.allianz.coreader.service.COReaderService;
 
 @RestController
-@RequestMapping(value = "/read")
+@RequestMapping(value = "/CO2Readings")
 public class COReaderController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(COReaderController.class);
