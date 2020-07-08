@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allianz.coreader.dtos.COTwoMeasureDTO;
-import com.allianz.coreader.service.COReaderService;
+import com.allianz.coreader.services.COReaderService;
 
 @RestController
 @RequestMapping(value = "/CO2Readings")
@@ -28,7 +28,6 @@ public class COReaderController {
 
 	@Autowired
 	private Validator beanValidator;
-
 
 	@Autowired
 	COReaderService coReaderService;
@@ -52,8 +51,7 @@ public class COReaderController {
 			LOG.debug("there were errors trying to save C02 Reading {}",errormessages);
 			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
 		}
-		
-		
+
 		if (response == null && errors.isEmpty()) {
 			coReaderService.processCOValue(coTwoMeasureDTO);
 			response = new ResponseEntity<>(HttpStatus.CREATED);

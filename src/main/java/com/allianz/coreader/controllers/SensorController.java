@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allianz.coreader.dtos.SensorDTO;
-import com.allianz.coreader.service.SensorService;
+import com.allianz.coreader.services.SensorService;
 import com.allianz.coreader.models.Sensor;
 
 @RestController
@@ -26,41 +26,39 @@ import com.allianz.coreader.models.Sensor;
 public class SensorController {
 
 	@Autowired
-	private SensorService manager;
-	
+	private SensorService sensorService;
 
 	@Autowired
 	private Validator beanValidator;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(SensorController.class);
 
-	@PostMapping
+	@PostMapping(headers = "Accept=application/json", produces="application/text", consumes="application/json")
 	public ResponseEntity<String> addSensor(@RequestBody final SensorDTO sensorDTO,
 			final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) {
 
 		ResponseEntity<String> responseEntity = null;
 		Set<ConstraintViolation<SensorDTO>> errors = beanValidator.validate(sensorDTO);
 		
-		
-		if(!errors.isEmpty()) {
+		if (!errors.isEmpty()) {
 			StringBuilder errormessages = new StringBuilder();
 			errors.forEach((error) -> errormessages.append(" | ").append(error.getMessage()));
 			LOG.debug("there were errors trying to save C02 Sensor {}",errormessages);
 			responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errormessages.toString());
 		}
 		
-		if(errors.isEmpty() && manager.exists(sensorDTO.getDescription())) {
+		if (errors.isEmpty() && sensorService.exists(sensorDTO.getDescription())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.FOUND);
 		}
-		
-		
-		if(errors.isEmpty() && responseEntity == null) {
+
+		if (errors.isEmpty() && responseEntity == null) {
 			Sensor newSensor = new Sensor();
 			newSensor.setDescription(sensorDTO.getDescription());
 			newSensor.setDistrictId(sensorDTO.getDistrictId());
 			
-			responseEntity = (manager.addSensor(newSensor)) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		} 
+			responseEntity = (sensorService.addSensor(newSensor)) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		return responseEntity;
 	}
 

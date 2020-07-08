@@ -27,7 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.allianz.coreader.dtos.SensorDTO;
-import com.allianz.coreader.service.SensorService;
+import com.allianz.coreader.services.SensorService;
 
 @SpringBootTest
 public class SensorControllerTest {

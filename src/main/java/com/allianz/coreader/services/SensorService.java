@@ -1,4 +1,4 @@
-package com.allianz.coreader.service;
+package com.allianz.coreader.services;
 
 import com.allianz.coreader.models.Sensor;
 import com.allianz.coreader.repositories.SensorRepository;
@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 public class SensorService {
 
     @Autowired
-    private SensorRepository repository;
+    private SensorRepository sensorRepository;
 
     public Boolean exists(String description) {
-        Sensor sensor = repository.findByDescription(description);
+        Sensor sensor = sensorRepository.findByDescription(description);
         return sensor != null ;
     }
 
     public Boolean addSensor(Sensor sensor) {
-        Sensor newSensor = repository.save(sensor);
+        Sensor newSensor = sensorRepository.save(sensor);
         return newSensor.getId() != null;
     }
 }

@@ -1,4 +1,4 @@
-package com.allianz.coreader.service;
+package com.allianz.coreader.services;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
@@ -37,7 +37,7 @@ public class COReaderService {
 		coReadingRepository.save(coReading);
 	}
 
-	public boolean doesSensorExist(String sensorId) {
+	public Boolean doesSensorExist(String sensorId) {
 
 		Optional<Sensor> sensorOptional = sensorRepository.findById(sensorId);
 		Sensor sensor = null;
@@ -46,7 +46,7 @@ public class COReaderService {
 				sensor = sensorOptional.get();
 		} catch (NoSuchElementException nsee) {
 			LOG.error("The district {} is not stored in the database", sensorId);
-			return false;
+			return Boolean.FALSE;
 		}
 		return sensor != null;
 	}

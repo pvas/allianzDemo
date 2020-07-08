@@ -1,4 +1,4 @@
-package com.allianz.coreader.service;
+package com.allianz.coreader.services;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
@@ -59,9 +59,9 @@ public class COReaderServiceTest {
 	
 	@Test
 	public void processCOValueWithNullDTOTest() {
-		assertThrows(NullPointerException.class, () -> {
-			coReaderService.processCOValue(null);
-	    });
+		assertThrows(NullPointerException.class, () ->
+			coReaderService.processCOValue(null)
+	    );
 		verify(coReadingRepository, never()).save(any(COReading.class));
 	}
 	
@@ -82,7 +82,7 @@ public class COReaderServiceTest {
 		sensor.setDescription("This is an existented sensor");
 		sensor.setId("1");
 			
-		Optional<Sensor> sensorOptional = Optional.of((Sensor) sensor);
+		Optional<Sensor> sensorOptional = Optional.of(sensor);
 		when(sensorRepository.findById("1")).thenReturn(sensorOptional);
 		
 		assertTrue(coReaderService.doesSensorExist("1"));
@@ -101,9 +101,9 @@ public class COReaderServiceTest {
 	@Test
 	public void doesSensorExistWithNullIdTest() {
 		when(sensorRepository.findById(null)).thenThrow(new IllegalArgumentException());
-		assertThrows(IllegalArgumentException.class, () -> {
-			coReaderService.doesSensorExist(null);
-	    });	
+		assertThrows(IllegalArgumentException.class, () ->
+			coReaderService.doesSensorExist(null)
+	    );
 		verify(sensorRepository, atLeastOnce()).findById(any());
 	}	
 }

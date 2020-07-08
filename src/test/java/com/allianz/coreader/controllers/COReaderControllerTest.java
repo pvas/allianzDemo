@@ -25,7 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.allianz.coreader.dtos.COTwoMeasureDTO;
-import com.allianz.coreader.service.COReaderService;
+import com.allianz.coreader.services.COReaderService;
 
 @SpringBootTest
 public class COReaderControllerTest  {

@@ -1,4 +1,4 @@
-package com.allianz.coreader.service;
+package com.allianz.coreader.services;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
@@ -55,9 +55,9 @@ public class SensorServiceTest {
 	@Test
 	public void existsWithNullDescriptionTest() {
 		when(repository.findByDescription(null)).thenThrow(new IllegalArgumentException());
-		assertThrows(IllegalArgumentException.class, () -> {
-			sensorService.exists(null);
-		});
+		assertThrows(IllegalArgumentException.class, () ->
+			sensorService.exists(null)
+		);
 		verify(repository, atLeastOnce()).findByDescription(null);
 	}
 
@@ -86,18 +86,18 @@ public class SensorServiceTest {
 		newSensor.setDistrictId("-1");
 
 		when(repository.save(newSensor)).thenThrow(new IllegalArgumentException());
-		assertThrows(IllegalArgumentException.class, () -> {
-			sensorService.addSensor(newSensor);
-		});
+		assertThrows(IllegalArgumentException.class, () ->
+			sensorService.addSensor(newSensor)
+		);
 		verify(repository, atLeastOnce()).save(newSensor);
 	}
 
 	@Test
 	public void addSensorWithNullEntityTest() {
 		when(repository.save(null)).thenThrow(new IllegalArgumentException());
-		assertThrows(IllegalArgumentException.class, () -> {
-			sensorService.addSensor(null);
-		});
+		assertThrows(IllegalArgumentException.class, () ->
+			sensorService.addSensor(null)
+		);
 		verify(repository, atLeastOnce()).save(any());
 	}
 }
