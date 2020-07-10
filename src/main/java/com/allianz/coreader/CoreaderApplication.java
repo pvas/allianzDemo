@@ -41,9 +41,8 @@ public class CoreaderApplication {
 						.version("1.0.0")
 						.build())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.allianz.coreader.controllers"))
+				.apis(RequestHandlerSelectors.basePackage("com.allianz.coreader"))
 				.paths(PathSelectors.any())
-				.paths(regex("(/api/v1.*)|(/register.*)"))
 				.build();
 	}
 }
